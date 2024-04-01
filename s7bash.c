@@ -1,4 +1,4 @@
-/* template - example template for loadable builtin */
+/* bashs7 - bashs7 based on template example for loadable builtin */
 
 /* See Makefile for compilation details. */
 
@@ -20,7 +20,7 @@ extern int errno;
 extern char *strerror ();
 
 int
-template_builtin (list)
+bashs7_builtin (list)
      WORD_LIST *list;
 {
   int opt, rval;
@@ -42,34 +42,34 @@ template_builtin (list)
   return (rval);
 }
 
-/* Called when `template' is enabled and loaded from the shared object.  If this
+/* Called when `bashs7' is enabled and loaded from the shared object.  If this
    function returns 0, the load fails. */
 int
-template_builtin_load (name)
+bashs7_builtin_load (name)
      char *name;
 {
   return (1);
 }
 
-/* Called when `template' is disabled. */
+/* Called when `bashs7' is disabled. */
 void
-template_builtin_unload (name)
+bashs7_builtin_unload (name)
      char *name;
 {
 }
 
-char *template_doc[] = {
+char *bashs7_doc[] = {
 	"Short description.",
 	""
 	"Longer description of builtin and usage.",
 	(char *)NULL
 };
 
-struct builtin template_struct = {
-	"template",			/* builtin name */
-	template_builtin,		/* function implementing the builtin */
+struct builtin bashs7_struct = {
+	"bashs7",			/* builtin name */
+	bashs7_builtin,		/* function implementing the builtin */
 	BUILTIN_ENABLED,		/* initial flags for builtin */
-	template_doc,			/* array of long documentation strings. */
-	"template",			/* usage synopsis; becomes short_doc */
+	bashs7_doc,			/* array of long documentation strings. */
+	"bashs7",			/* usage synopsis; becomes short_doc */
 	0				/* reserved for internal use */
 };
