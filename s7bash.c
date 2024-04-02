@@ -12,12 +12,16 @@
 #include <errno.h>
 
 #include "loadables.h"
+#include "s7/s7.h"
+int s7main(int argc, char **argv);
 
 #if !defined (errno)
 extern int errno;
 #endif
 
 extern char *strerror ();
+
+s7_scheme *sc = NULL;
 
 int
 bashs7_builtin (list)
@@ -39,6 +43,11 @@ bashs7_builtin (list)
     }
   list = loptend;
 
+//  char* n[]={ "./", NULL };
+//  s7main(1, (char**)&n);
+
+  s7_repl(sc);
+
   return (rval);
 }
 
@@ -48,6 +57,10 @@ int
 bashs7_builtin_load (name)
      char *name;
 {
+  if (! (sc = s7_init())) return EX_MISCERROR;
+
+  fprintf(stderr, "s7: %s\n", S7_DATE);
+
   return (1);
 }
 
@@ -67,7 +80,7 @@ char *bashs7_doc[] = {
 
 struct builtin bashs7_struct = {
 	"bashs7",			/* builtin name */
-	bashs7_builtin,		/* function implementing the builtin */
+	bashs7_builtin,			/* function implementing the builtin */
 	BUILTIN_ENABLED,		/* initial flags for builtin */
 	bashs7_doc,			/* array of long documentation strings. */
 	"bashs7",			/* usage synopsis; becomes short_doc */
